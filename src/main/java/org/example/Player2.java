@@ -17,11 +17,8 @@ public class Player2 {
 
         Thread showingMap2 = new MapShowingHandler(client2.getIn(),client2.getFrame());
         showingMap2.start();
-        //Thread sendingMessages2 = new MessageSender(client2.getOut(),client2.getFrame(), TypeOfPlayer.PLAYER_2);
-        //sendingMessages2.start();
 
         showingMap2.join();
-        //sendingMessages2.join();
 
         client2.stopConnection();
     }

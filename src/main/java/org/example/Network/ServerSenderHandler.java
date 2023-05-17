@@ -18,7 +18,6 @@ public class ServerSenderHandler extends Thread{
     public void run() {
         while (true){
             try {
-                //Thread.sleep(100);
                 Board acutalBoard = MyServer.getBoard();
                 for (Statistics s: statistics) {
                     s.update(acutalBoard);

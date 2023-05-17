@@ -17,12 +17,9 @@ public class Player1 {
         Thread.sleep(1000);
 
         Thread showingMap = new MapShowingHandler(client1.getIn(),client1.getFrame());
-        showingMap.start();
-        //Thread sendingMessages = new MessageSender(client1.getOut(),client1.getFrame(), TypeOfPlayer.PLAYER_1);
-        //sendingMessages.start();
 
+        showingMap.start();
         showingMap.join();
-        //sendingMessages.join();
 
         client1.stopConnection();
     }

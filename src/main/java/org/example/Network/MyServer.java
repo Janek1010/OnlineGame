@@ -17,12 +17,12 @@ public class MyServer {
     private ServerSocket serverSocket;
     private int connectedPlayers = 0;
     private final static int MAX_PLAYERS = 2;
-    public final static int ROWS_COUNT = 10;
-    public final static int COLUMNS_COUNT = 10;
+    public final static int ROWS_COUNT = 30;
+    public final static int COLUMNS_COUNT = 30;
     private static Board board = null;
     private static List<EchoClientHandler> echoClientHandlers = new ArrayList<>();
     private static List<Statistics> statistics = new ArrayList<>();
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         MyServer server = new MyServer();
         server.start(5555);
     }
@@ -30,7 +30,7 @@ public class MyServer {
         return board;
     }
 
-    public void start(int port) throws IOException {
+    public void start(int port) {
         try {
             serverSocket = new ServerSocket(port);
             while (connectedPlayers != MAX_PLAYERS) {
