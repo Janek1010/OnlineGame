@@ -33,19 +33,4 @@ public class Board implements Serializable {
     public void setFieldType(int x, int y, TypeOfField typeOfField, TypeOfPlayer typeOfPlayer){
         actualMap.get(x).get(y).setTypeOfPlayerAndFieldType(typeOfPlayer,typeOfField);
     }
-
-    public void printOutInConsole(){
-        System.out.println("Mapa aktualna");
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                if (actualMap.get(i).get(j).getTypeOfField() == TypeOfField.BUILDING){
-                    System.out.print("B");
-                } else {
-                    System.out.print(" ");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
 }

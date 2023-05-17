@@ -1,10 +1,9 @@
 package org.example.Network;
 
-import lombok.Getter;
 import org.example.Enums.TypeOfField;
 import org.example.Enums.TypeOfPlayer;
 import org.example.Game.Board;
-import org.example.Network.Players.Message;
+import org.example.Game.Statistics;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -17,11 +16,12 @@ public class MyServer {
     private static final Logger LOGGER = Logger.getLogger(MyServer.class.getName());
     private ServerSocket serverSocket;
     private int connectedPlayers = 0;
-    private final static int MAX_PLAYERS = 2; // na razie testuje jednego playera, potem dodam dwoch jak bedzie 1 odbieral dobrze
+    private final static int MAX_PLAYERS = 2;
     public final static int ROWS_COUNT = 10;
     public final static int COLUMNS_COUNT = 10;
     private static Board board = null;
     private static List<EchoClientHandler> echoClientHandlers = new ArrayList<>();
+    private static List<Statistics> statistics = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         MyServer server = new MyServer();
         server.start(5555);
@@ -34,7 +34,6 @@ public class MyServer {
         try {
             serverSocket = new ServerSocket(port);
             while (connectedPlayers != MAX_PLAYERS) {
-
                 Socket acceptedSocket = serverSocket.accept();
                 EchoClientHandler acceptedPlayer = new EchoClientHandler(acceptedSocket);
                 echoClientHandlers.add(acceptedPlayer);
@@ -51,7 +50,11 @@ public class MyServer {
         board = new Board(ROWS_COUNT,COLUMNS_COUNT);
         board.setFieldType(3,3, TypeOfField.BUILDING, TypeOfPlayer.PLAYER_1); //robie graczowi startowa pozycje
         board.setFieldType(ROWS_COUNT -3,COLUMNS_COUNT-3, TypeOfField.BUILDING, TypeOfPlayer.PLAYER_2);
-        new Thread(new MapSenderHandler(echoClientHandlers)).start();
+
+        statistics.add(new Statistics(TypeOfPlayer.PLAYER_1));
+        statistics.add(new Statistics(TypeOfPlayer.PLAYER_2));
+
+        new Thread(new ServerSenderHandler(echoClientHandlers, statistics)).start();
     }
 
     public void stop() {

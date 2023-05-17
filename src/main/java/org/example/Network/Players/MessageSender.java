@@ -27,10 +27,8 @@ public class MessageSender extends Thread {
     public void run() {
         while (true) {
             try {
-                // x y
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
-                System.out.println("Gracz: "+typeOfPlayer+" wysyla X: "+x+" Y: "+y);
                 out.writeObject(new Message(x, y, typeOfPlayer, TypeOfField.BUILDING));
                 out.flush();
             } catch (Exception e) {

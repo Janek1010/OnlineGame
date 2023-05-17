@@ -1,15 +1,18 @@
 package org.example.Network;
 
 import org.example.Game.Board;
+import org.example.Game.Statistics;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-public class MapSenderHandler extends Thread{
+public class ServerSenderHandler extends Thread{
     private List<EchoClientHandler> clients;
-    public MapSenderHandler(List<EchoClientHandler> clients) throws IOException {
+    private List<Statistics> statistics;
+    public ServerSenderHandler(List<EchoClientHandler> clients, List<Statistics> statistics) {
         this.clients = clients;
+        this.statistics = statistics;
     }
     @Override
     public void run() {
@@ -17,10 +20,14 @@ public class MapSenderHandler extends Thread{
             try {
                 Thread.sleep(100);
                 Board acutalBoard = MyServer.getBoard();
+                for (Statistics s: statistics) {
+                    s.update(acutalBoard);
+                }
                 for (var client: clients) {
                     ObjectOutputStream out = client.getOut();
                     out.reset();
                     out.writeObject(acutalBoard);
+                    out.writeObject(statistics);
                     out.flush();
                 }
             } catch (InterruptedException | IOException e) {

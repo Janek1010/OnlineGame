@@ -13,6 +13,7 @@ public class Field implements Serializable {
     private int y;
     private TypeOfPlayer typeOfPlayer;
     private TypeOfField typeOfField;
+    private Building building;
 
     public Field(int x, int y) {
         this.x = x;
@@ -20,21 +21,13 @@ public class Field implements Serializable {
         this.typeOfPlayer = TypeOfPlayer.NO_ONE;
         this.typeOfField = TypeOfField.NOTHING;
     }
-    public boolean hasBuilding(){
-        if (typeOfField == TypeOfField.BUILDING){
-            return true;
-        }
-        return false;
-    }
+
     public void setTypeOfPlayerAndFieldType(TypeOfPlayer typeOfPlayer, TypeOfField typeOfField){
         this.typeOfPlayer = typeOfPlayer;
         this.typeOfField = typeOfField;
+        if (typeOfField == TypeOfField.BUILDING){
+            this.building = new Building(typeOfPlayer);
+        }
     }
 
-    @Override
-    public String toString() {
-        return "(" + x +
-                " " + y +
-                ")";
-    }
 }
