@@ -1,6 +1,7 @@
 package org.example.Network.Players;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.example.Enums.TypeOfField;
 import org.example.Enums.TypeOfPlayer;
 import org.example.Game.Board;
@@ -9,10 +10,17 @@ import org.example.Game.Statistics;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MapFrame extends JFrame {
     private final JPanel mapPanel;
+    @Setter
+    private ObjectOutputStream out = null;
     @Getter
     private TypeOfPlayer typeOfPlayer;
     private Statistics statistics;
@@ -37,6 +45,7 @@ public class MapFrame extends JFrame {
             for (int j = 0; j < board.getColumns(); j++) {
                 JLabel label = new JLabel();
                 label.setOpaque(true);
+                label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 mapPanel.add(label);
             }
         }
@@ -64,6 +73,34 @@ public class MapFrame extends JFrame {
         statsPanel.add(stoneLabel);
         statsPanel.add(pointsTextLabel);
         statsPanel.add(pointsLabel);
+
+        mapPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int x = e.getX();
+                int y = e.getY();
+
+                // Przeliczenie współrzędnych pikselowych na indeksy w siatce GridLayout
+                int width = mapPanel.getWidth();
+                int height = mapPanel.getHeight();
+                int rows = board.getRows();
+                int columns = board.getColumns();
+                int cellWidth = width / columns;
+                int cellHeight = height / rows;
+
+                int rowIndex = y / cellHeight;
+                int columnIndex = x / cellWidth;
+
+                try {
+                    out.writeObject(new Message(rowIndex, columnIndex, typeOfPlayer, TypeOfField.BUILDING));
+                    out.flush();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
         setVisible(true);
     }
 
@@ -93,12 +130,13 @@ public class MapFrame extends JFrame {
     }
 
     public void updateStatistics(ArrayList<Statistics> statistics) {
-        for (Statistics s: statistics) {
-            if (s.getTypeOfPlayer() == typeOfPlayer){
-                woodLabel.setText(String.valueOf(s.getWood()));
-                goldLabel.setText(String.valueOf(s.getGold()));
-                stoneLabel.setText(String.valueOf(s.getStone()));
-                pointsLabel.setText(String.valueOf(s.getPoints()));
+        for (Statistics s : statistics) {
+            if (s.getTypeOfPlayer() == typeOfPlayer) {
+
+                woodLabel.setText(new BigDecimal(s.getWood()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+                goldLabel.setText(new BigDecimal(s.getGold()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+                stoneLabel.setText(new BigDecimal(s.getStone()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+                pointsLabel.setText(new BigDecimal(s.getPoints()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
             }
         }
 

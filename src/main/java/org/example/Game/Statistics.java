@@ -12,26 +12,26 @@ import java.util.List;
 
 @Getter
 public class Statistics implements Serializable {
-    float gold =0;
-    float stone = 0;
-    float wood = 0;
-    long points = 0;
+    double gold =0;
+    double stone = 0;
+    double wood = 0;
+    double points = 0;
     TypeOfPlayer typeOfPlayer;
 
     public Statistics(TypeOfPlayer typeOfPlayer) {
         this.typeOfPlayer = typeOfPlayer;
     }
 
-    void addGold(float addedGold){
+    void addGold(double addedGold){
         this.gold +=addedGold;
     }
-    void addStone(float addedStone){
+    void addStone(double addedStone){
         this.stone +=addedStone;
     }
-    void addWood(float addedWood){
+    void addWood(double addedWood){
         this.wood +=addedWood;
     }
-    void addPoints(long addedPoints){
+    void addPoints(double addedPoints){
         this.points += addedPoints;
     }
 

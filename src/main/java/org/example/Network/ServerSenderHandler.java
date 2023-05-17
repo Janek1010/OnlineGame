@@ -18,7 +18,7 @@ public class ServerSenderHandler extends Thread{
     public void run() {
         while (true){
             try {
-                Thread.sleep(100);
+                //Thread.sleep(100);
                 Board acutalBoard = MyServer.getBoard();
                 for (Statistics s: statistics) {
                     s.update(acutalBoard);
@@ -30,7 +30,7 @@ public class ServerSenderHandler extends Thread{
                     out.writeObject(statistics);
                     out.flush();
                 }
-            } catch (InterruptedException | IOException e) {
+            } catch ( IOException e) {
                 throw new RuntimeException(e);
             }
         }

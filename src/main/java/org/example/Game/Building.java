@@ -9,10 +9,10 @@ import java.io.Serializable;
 public class Building implements Serializable {
     private TypeOfPlayer typeOfPlayer;
     private int level;
-    private float generatedGold = 2;
-    private float generatedWood = 1;
-    private float generatedStone = 1;
-    private long generatedPoints = 3;
+    private double generatedGold = 0.02;
+    private double generatedWood = 0.01;
+    private double generatedStone = 0.01;
+    private double generatedPoints = 0.01;
 
     public Building(TypeOfPlayer typeOfPlayer) {
         this.typeOfPlayer = typeOfPlayer;

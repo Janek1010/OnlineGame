@@ -5,7 +5,6 @@ import org.example.Game.Board;
 import org.example.Network.MyServer;
 import org.example.Network.Players.MapFrame;
 import org.example.Network.Players.MapShowingHandler;
-import org.example.Network.Players.MessageSender;
 import org.example.Network.Players.Player;
 
 import java.io.IOException;
@@ -18,11 +17,11 @@ public class Player2 {
 
         Thread showingMap2 = new MapShowingHandler(client2.getIn(),client2.getFrame());
         showingMap2.start();
-        Thread sendingMessages2 = new MessageSender(client2.getOut(),client2.getFrame(), TypeOfPlayer.PLAYER_2);
-        sendingMessages2.start();
+        //Thread sendingMessages2 = new MessageSender(client2.getOut(),client2.getFrame(), TypeOfPlayer.PLAYER_2);
+        //sendingMessages2.start();
 
         showingMap2.join();
-        sendingMessages2.join();
+        //sendingMessages2.join();
 
         client2.stopConnection();
     }

@@ -34,6 +34,7 @@ public class Player {
             clientSocket = new Socket(ip, port);
             out = new ObjectOutputStream(clientSocket.getOutputStream());
             in = new ObjectInputStream(clientSocket.getInputStream());
+            frame.setOut(out);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error when starting connection", e);
         }
