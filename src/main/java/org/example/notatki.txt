@@ -1,0 +1,8 @@
+zastanowic sie czemu mi wywala blad w MapFrame JPnale
+
+jak watek MapSender wysyla mape to chyba lepiej zeby zrobic aby pobieral kopie mapy
+
+kolor pola zmienic na w zaleznosci od gracza
+
+
+mam najebane ze streamamui, zoabczyc to jak robie w playerze streamy i jak w serverze wyczyscic kod bo najebane

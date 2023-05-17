@@ -1,9 +1,11 @@
-package org.example;
+package org.example.Network.Players;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.example.Enums.TypeOfField;
+import org.example.Enums.TypeOfPlayer;
 
 import java.io.Serializable;
 
@@ -12,6 +14,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 public class Message implements Serializable {
-    private int number;
-    private String content;
+    private int x;
+    private int y;
+    private TypeOfPlayer typeOfPlayer;
+    private TypeOfField typeOfField;
 }
