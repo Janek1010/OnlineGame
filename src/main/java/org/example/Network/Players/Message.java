@@ -18,4 +18,7 @@ public class Message implements Serializable {
     private int y;
     private TypeOfPlayer typeOfPlayer;
     private TypeOfField typeOfField;
+    private int BUILDING_GOLD_COST;
+    private int BUILDING_WOOD_COST;
+    private int BUILDING_STONE_COST;
 }
