@@ -18,6 +18,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MapFrame extends JFrame {
+    private static final int BUILDING_GOLD_COST = 50;
+    private static final int BUILDING_WOOD_COST = 50;
+    private static final int BUILDING_STONE_COST = 50;
     private final JPanel mapPanel;
     @Setter
     private ObjectOutputStream out = null;
