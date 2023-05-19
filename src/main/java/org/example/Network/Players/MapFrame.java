@@ -21,7 +21,7 @@ public class MapFrame extends JFrame {
     private static final int BUILDING_GOLD_COST = 3;
     private static final int BUILDING_WOOD_COST = 1;
     private static final int BUILDING_STONE_COST = 1;
-    private boolean builded = false;
+    //private boolean builded = false;
     private final JPanel mapPanel;
     @Setter
     private ObjectOutputStream out = null;
@@ -119,7 +119,7 @@ public class MapFrame extends JFrame {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        builded = true;
+        //builded = true;
     }
 
 
@@ -151,10 +151,10 @@ public class MapFrame extends JFrame {
     public void updateStatistics(ArrayList<Statistics> statistics) {
         for (Statistics s : statistics) {
             if (s.getTypeOfPlayer() == typeOfPlayer) {
-                if(builded) {
+               /* if(builded) {
                     s.payForBoulding(BUILDING_GOLD_COST, BUILDING_WOOD_COST, BUILDING_STONE_COST);
                     builded = !builded;
-                }
+                }*/
 
                 woodLabel.setText(new BigDecimal(s.getWood()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
                 goldLabel.setText(new BigDecimal(s.getGold()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
