@@ -1,5 +1,6 @@
 package org.example.Network;
 
+import lombok.Getter;
 import org.example.Enums.TypeOfField;
 import org.example.Enums.TypeOfPlayer;
 import org.example.Game.Board;
@@ -21,6 +22,7 @@ public class MyServer {
     public final static int COLUMNS_COUNT = 30;
     private static Board board = null;
     private static List<EchoClientHandler> echoClientHandlers = new ArrayList<>();
+    @Getter
     private static List<Statistics> statistics = new ArrayList<>();
     public static void main(String[] args) {
         MyServer server = new MyServer();
