@@ -20,12 +20,13 @@ public class Player {
     private Socket clientSocket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-    private MapFrame frame = null;
+    private MapFrame frame;
     private final TypeOfPlayer typeOfPlayer;
 
     public Player(MapFrame frame, TypeOfPlayer typeOfPlayer) {
         this.frame = frame;
         this.typeOfPlayer = typeOfPlayer;
+        this.frame = frame;
     }
 
 
