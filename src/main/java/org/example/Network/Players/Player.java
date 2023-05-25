@@ -26,7 +26,6 @@ public class Player {
     public Player(MapFrame frame, TypeOfPlayer typeOfPlayer) {
         this.frame = frame;
         this.typeOfPlayer = typeOfPlayer;
-        this.frame = frame;
     }
 
 
@@ -51,4 +50,5 @@ public class Player {
             LOGGER.log(Level.SEVERE, "Error when closing connection", e);
         }
     }
+
 }
