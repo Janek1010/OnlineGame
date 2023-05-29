@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class Field implements Serializable {
     private int x;
     private int y;
+    private boolean isTaken;
     private TypeOfPlayer typeOfPlayer;
     private TypeOfField typeOfField;
     private Building building;
@@ -20,13 +21,17 @@ public class Field implements Serializable {
         this.y = y;
         this.typeOfPlayer = TypeOfPlayer.NO_ONE;
         this.typeOfField = TypeOfField.NOTHING;
+        this.isTaken =false;
     }
 
     public void setTypeOfPlayerAndFieldType(TypeOfPlayer typeOfPlayer, TypeOfField typeOfField){
-        this.typeOfPlayer = typeOfPlayer;
-        this.typeOfField = typeOfField;
-        if (typeOfField == TypeOfField.BUILDING){
-            this.building = new Building(typeOfPlayer);
+        if(this.isTaken == false){
+            this.typeOfPlayer = typeOfPlayer;
+            this.typeOfField = typeOfField;
+            if (typeOfField == TypeOfField.BUILDING){
+                this.building = new Building(typeOfPlayer);
+                this.isTaken = true;
+            }
         }
     }
 

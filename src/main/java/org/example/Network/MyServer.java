@@ -5,7 +5,9 @@ import org.example.Enums.TypeOfField;
 import org.example.Enums.TypeOfPlayer;
 import org.example.Game.Board;
 import org.example.Game.Statistics;
+import org.example.Network.Players.MapFrame;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,7 +17,7 @@ import java.util.logging.*;
 
 public class MyServer {
     private static final Logger LOGGER = Logger.getLogger(MyServer.class.getName());
-    private ServerSocket serverSocket;
+    private static ServerSocket serverSocket;
     private int connectedPlayers = 0;
     private final static int MAX_PLAYERS = 2;
     public final static int ROWS_COUNT = 30;
@@ -57,11 +59,13 @@ public class MyServer {
         statistics.add(new Statistics(TypeOfPlayer.PLAYER_2));
 
         new Thread(new ServerSenderHandler(echoClientHandlers, statistics)).start();
+
     }
 
-    public void stop() {
+    public static void stop() {
         try {
             serverSocket.close();
+
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error when stoping server", e);
             e.printStackTrace();

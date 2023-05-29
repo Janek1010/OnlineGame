@@ -1,6 +1,8 @@
 package org.example.Network;
 
 import lombok.Getter;
+import lombok.Setter;
+import org.example.Network.Players.MapFrame;
 import org.example.Game.Statistics;
 import org.example.Network.Players.Message;
 
@@ -11,17 +13,22 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class EchoClientHandler extends Thread {
     private static final Logger LOGGER = Logger.getLogger(EchoClientHandler.class.getName());
     private final Socket clientSocket;
     @Getter
     private final ObjectOutputStream out;
     private final ObjectInputStream in;
+    @Getter
+    @Setter
+    private MapFrame frame;
 
     public EchoClientHandler(Socket socket) throws IOException {
         this.clientSocket = socket;
         this.out = new ObjectOutputStream(clientSocket.getOutputStream());
         this.in = new ObjectInputStream(clientSocket.getInputStream());
+        this.frame = frame;
     }
 
     @Override
@@ -52,6 +59,13 @@ public class EchoClientHandler extends Thread {
             LOGGER.log(Level.SEVERE, "Error when serving client", e);
         } catch (Exception e){
             LOGGER.log(Level.SEVERE, "Zamykam polaczenie", e);
+        }
+    }
+    public void closeConnection() {
+        try {
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
