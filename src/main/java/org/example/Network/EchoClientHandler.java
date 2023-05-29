@@ -3,6 +3,7 @@ package org.example.Network;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.Network.Players.MapFrame;
+import org.example.Game.Statistics;
 import org.example.Network.Players.Message;
 
 import java.io.IOException;
@@ -37,6 +38,12 @@ public class EchoClientHandler extends Thread {
             while ((inMessage = in.readObject()) != null ) {
                 try {
                     if (inMessage instanceof Message mess){
+                        for(Statistics s: MyServer.getStatistics()){
+                            if (s.getTypeOfPlayer() == mess.getTypeOfPlayer()){
+                                s.payForBoulding(mess.getBUILDING_GOLD_COST(), mess.getBUILDING_WOOD_COST(),mess.getBUILDING_STONE_COST());
+                            }
+                        }
+
                         MyServer.getBoard().setFieldType(mess.getX(),mess.getY(),mess.getTypeOfField(),mess.getTypeOfPlayer());
                     }
                 } catch (Exception e){

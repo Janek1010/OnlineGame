@@ -18,6 +18,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MapFrame extends JFrame {
+    private static final int BUILDING_GOLD_COST = 3;
+    private static final int BUILDING_WOOD_COST = 1;
+    private static final int BUILDING_STONE_COST = 1;
+    //private boolean builded = false;
     private final JPanel mapPanel;
     @Setter
     private ObjectOutputStream out = null;
@@ -93,9 +97,10 @@ public class MapFrame extends JFrame {
                 int columnIndex = x / cellWidth;
 
                 try {
-                    out.writeObject(new Message(rowIndex, columnIndex, typeOfPlayer, TypeOfField.BUILDING));
-                    out.flush();
-                } catch (IOException ex) {
+                    /*out.writeObject(new Message(rowIndex, columnIndex, typeOfPlayer, TypeOfField.BUILDING));
+                    out.flush();*/
+                    buildBuilding(rowIndex,columnIndex);
+                } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
             }
@@ -103,6 +108,20 @@ public class MapFrame extends JFrame {
 
         setVisible(true);
     }
+
+    private void buildBuilding(int rowIndex,int columnIndex) throws Exception {
+        if(statistics.getGold() <BUILDING_GOLD_COST || statistics.getWood() <BUILDING_WOOD_COST || statistics.getStone() <BUILDING_STONE_COST){
+            throw new Exception("Not enaugh resources for building");
+        }
+        try {
+            out.writeObject(new Message(rowIndex, columnIndex, typeOfPlayer, TypeOfField.BUILDING, BUILDING_GOLD_COST, BUILDING_WOOD_COST, BUILDING_STONE_COST));
+            out.flush();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        //builded = true;
+    }
+
 
 
     public void updateBoard(Board board) {
@@ -132,13 +151,18 @@ public class MapFrame extends JFrame {
     public void updateStatistics(ArrayList<Statistics> statistics) {
         for (Statistics s : statistics) {
             if (s.getTypeOfPlayer() == typeOfPlayer) {
+               /* if(builded) {
+                    s.payForBoulding(BUILDING_GOLD_COST, BUILDING_WOOD_COST, BUILDING_STONE_COST);
+                    builded = !builded;
+                }*/
 
                 woodLabel.setText(new BigDecimal(s.getWood()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
                 goldLabel.setText(new BigDecimal(s.getGold()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
                 stoneLabel.setText(new BigDecimal(s.getStone()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
                 pointsLabel.setText(new BigDecimal(s.getPoints()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+
+                this.statistics = s;
             }
         }
-
     }
 }

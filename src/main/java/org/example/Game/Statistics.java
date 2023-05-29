@@ -3,6 +3,7 @@ package org.example.Game;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.Enums.TypeOfField;
 import org.example.Enums.TypeOfPlayer;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 public class Statistics implements Serializable {
     double gold =0;
     double stone = 0;
@@ -51,4 +53,11 @@ public class Statistics implements Serializable {
             }
         }
     }
+
+    public void payForBoulding(int BUILDING_GOLD_COST, int BUILDING_WOOD_COST, int BUILDING_STONE_COST) {
+        setGold(getGold()-BUILDING_GOLD_COST);
+        setWood(getWood()-BUILDING_WOOD_COST);
+        setStone(getStone()-BUILDING_STONE_COST);
+    }
+
 }
